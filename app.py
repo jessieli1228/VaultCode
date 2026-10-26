@@ -90,6 +90,13 @@ def home_page():
     </style>
     """, unsafe_allow_html=True)
 
+    # --- CENTERED APP ICON & BRANDING ---
+    icon_col1, icon_col2, icon_col3 = st.columns([1, 1.5, 1])
+    with icon_col2:
+        st.image("appicon.jpeg", use_container_width=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
     st.markdown("<div style='text-align: center;'>" \
                 "<h1>VaultCode: AI-powered Secure Coding</h1>" \
                 "<p>An interactive AI coding mentor that identifies security risks—like hard-coded API keys—and teaches developers to build safer, production-ready software.</p>" \

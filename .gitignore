@@ -9,3 +9,4 @@ users.db
 __pycache__/
 *.db
 .env
+*.db

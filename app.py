@@ -110,6 +110,63 @@ def home_page():
             st.rerun()
 
 
+def features_guide_page():
+    st.markdown("""
+        <style>
+            .stApp { 
+                background-color: #0e1117;
+                color: #ffffff;
+            }
+            div[data-testid="stVerticalBlock"] {
+                background-color: #1e1e1e;
+                padding: 30px;
+                border-radius: 10px;
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+                margin-bottom: 20px;
+                border: 1px solid #333;
+            }
+            h1, h2, h3 { color: #4CAF50; }
+            .feature-box {
+                margin-bottom: 20px;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # Top Navigation back to Dashboard
+    if st.button("⬅️ Back to Dashboard"):
+        st.session_state.page = "dashboard"
+        st.rerun()
+
+    st.markdown("<h1>📖 VaultCode Feature Guide</h1>", unsafe_allow_html=True)
+    st.markdown("<p style='color: #cccccc;'>Welcome! Here is a quick breakdown of what each feature does and how to use it.</p>", unsafe_allow_html=True)
+    st.markdown("---")
+
+    # Feature 1
+    with st.container():
+        st.markdown("### 🔍 Run Security Audit / Code Analysis")
+        st.write("Scans your code snippets or uploaded scripts to detect common vulnerabilities, hard-coded API keys, and insecure practices. It provides line-by-line feedback to help you fix bugs before deployment.")
+
+    # Feature 2
+    with st.container():
+        st.markdown("### 🤖 Advanced AI Models (Gemini & Gemma)")
+        st.write("Powered by Google's cutting-edge language models (`gemma-3-27b-it`, `gemini-2.5-flash`, etc.). You can toggle between different models depending on whether you need deep architectural insights or fast response times for your coding queries.")
+
+    # Feature 3
+    with st.container():
+        st.markdown("### 🔐 Password & Key Entropy Checker")
+        st.write("A built-in security tool during account sign-up that calculates password strength and entropy, teaching you cryptographic best practices for credential security.")
+
+    # Feature 4
+    with st.container():
+        st.markdown("### 💻 Interactive Workspace")
+        st.write("An embedded code editor where you can test, write, and interact directly with your security mentor in real-time.")
+
+    st.markdown("---")
+    if st.button("🚀 Return to Dashboard", key="return_dash_bottom"):
+        st.session_state.page = "dashboard"
+        st.rerun()
+
+
 
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
@@ -297,6 +354,16 @@ def dashboard_page():
             st.markdown("<h2>Training Modules</h2>", unsafe_allow_html=True)
             st.write("Enhance your secure coding skills.")
             st.button("Browse Modules", key="dash_browse_training", on_click=set_page, args=("training",))
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    with st.container():
+        st.markdown("<h2>ℹ️ Need Help Getting Started?</h2>", unsafe_allow_html=True)
+        st.write("New to VaultCode? Learn what each feature, AI model, and security tool does before diving in.")
+        
+        # A nice prominent button that spans nicely or sits centered/left-aligned
+        if st.button("📖 View Feature Guide", key="dash_feature_guide"):
+            st.session_state.page = "features_guide"
+            st.rerun()
 
 # New unified chatbot render function
 def render_unified_chatbot(context_label, context_data=""):
@@ -645,8 +712,13 @@ elif st.session_state.page == "dashboard":
     dashboard_page()
 elif st.session_state.page == "workspace":
     workspace_page()
-elif st.session_state.page == "training": # This matches your dashboard button
+elif st.session_state.page == "training": 
     learning_center()
+elif st.session_state.page == "features_guide":  
+    features_guide_page()    
+
+
+
 
 # Streamlit heartbeat fragment to keep the websocket connection alive
 @st.fragment(run_every=60)
